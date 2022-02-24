@@ -4,9 +4,9 @@ This repository is the official PyTorch implementation of the following paper:
 
 Yaoyiran Li, Fangyu Liu, Nigel Collier, Anna Korhonen, Ivan Vulić. 2022. *Improving Word Translation via Two-Stage Contrastive Learning*. In Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (ACL 2022). 
 
-Our contrastive-learning-based method consists of two stages: C1 and C2. Stage C1 uses static fastText word embeddings only. As an independent model, C1 can be evaluated separately and thus can serve as a strong fastText-based baseline. Stage C2 uses both C1-aligned embeddings and pretrained MLMs such as mBERT/XLM/mT5 to further improve the results. Of course, C2 is compatible with other fastText-based methods; you could use methods like VecMap/RCSLS to derive cross-lingual embeddings and replace C1-aligned embeddings in C2!    
-
 ![C2](model.png "C2")
+
+Our contrastive-learning-based method consists of two stages: C1 and C2. Stage C1 uses static fastText word embeddings only. As an independent model, C1 can be evaluated separately and thus can serve as a strong fastText-based baseline. Stage C2 uses both C1-aligned embeddings and pretrained MLMs such as mBERT/XLM/mT5 to further improve the results. Of course, C2 is compatible with other fastText-based methods; you could use methods like VecMap/RCSLS to derive cross-lingual embeddings and replace C1-aligned embeddings in C2!    
 
 ## Dependencies:
 
@@ -49,7 +49,7 @@ Step 2. Install dependancies:
 ```bash
 sudo nvidia-docker start [Container Name]
 sudo nvidia-docker attach [Container Name]
-git clone 
+git clone https://github.com/cambridgeltl/ContrastiveBLI.git
 cd ContrastiveBLI 
 sh setup.sh
 ```
