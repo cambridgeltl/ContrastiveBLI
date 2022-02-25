@@ -66,7 +66,7 @@ When running experiments on a new dataset, a new language pair, or when having d
 
 ## Known Issues:
 
-It is reported that T5/mT5 produce "nan" outputs under mixed-precision or fp16 mode when using some Transformer versions [ISSUE](https://discuss.huggingface.co/t/t5-fp16-issue-is-fixed/3139). Our code also suffers from this issue. When running C2 with mT5, we recommend to switch off amp by commenting line 54 in ./C2/src/metric_learning.py.
+It is reported that T5/mT5 produce "nan" outputs under mixed-precision or fp16 mode when using some Transformer versions ([ISSUE](https://discuss.huggingface.co/t/t5-fp16-issue-is-fixed/3139)). Our code also suffers from this issue. When running C2 with mT5, we recommend to switch off amp by commenting line 54 in ./C2/src/metric_learning.py.
 
 ## Acknowledgements:
 
