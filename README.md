@@ -70,7 +70,7 @@ It is reported that T5/mT5 produce "nan" outputs under mixed-precision or fp16 m
 
 ## Acknowledgements:
 
-Part of our code is adapted from the following GitHub repos: [XLING](https://github.com/codogogo/xling-eval), [RCSLS](https://github.com/facebookresearch/fastText/tree/main/alignment), [VecMap](https://github.com/artetxem/vecmap) and [ECNMT](https://github.com/cambridgeltl/ECNMT). 
+Part of our code is adapted from the following GitHub repos: [XLING](https://github.com/codogogo/xling-eval), [RCSLS](https://github.com/facebookresearch/fastText/tree/main/alignment), [VecMap](https://github.com/artetxem/vecmap), [Mirror-BERT](https://github.com/cambridgeltl/mirror-bert) and [ECNMT](https://github.com/cambridgeltl/ECNMT). 
 
 ## If you find our paper and resources useful, please kindly cite our paper:
 
