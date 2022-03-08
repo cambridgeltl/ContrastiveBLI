@@ -6,7 +6,7 @@ Yaoyiran Li, Fangyu Liu, Nigel Collier, Anna Korhonen and Ivan Vulić. 2022. *Im
 
 ![C2](model.png "C2")
 
-Our contrastive-learning-based method consists of two stages: C1 and C2. Stage C1 uses static fastText word embeddings only. As an independent model, C1 can be evaluated separately and thus can serve as a strong fastText-based baseline. Stage C2 uses both C1-aligned embeddings and pretrained MLMs such as mBERT/XLM/mT5 to further improve the results. Of course, C2 is compatible with other fastText-based methods; you could use methods like VecMap/RCSLS to derive cross-lingual embeddings and replace C1-aligned embeddings in C2!    
+Our work addresses the problem of Bilingual Lexicon Induction (BLI) and consists of two stages: C1 and C2. Stage C1 uses static word embeddings (e.g. fastText) only. As an independent model, C1 can be evaluated separately and thus serves as a strong fastText-based baseline for BLI tasks. Stage C2 leverages both C1-aligned cross-lingual word embeddings (CLWEs) and pretrained multilingual LMs such as mBERT/XLM/mT5 to further improve the BLI performance. Of course, C2 is compatible with other CLWE models: you could instead use, say, VecMap or RCSLS to derive CLWEs which can then replace C1-aligned CLWEs in C2!    
 
 ## Dependencies:
 
@@ -56,13 +56,13 @@ sh setup.sh
 
 ## Tips on Hyper-parameter Search:
 
-When running experiments on a new dataset, a new language pair, or when having different training dictionary sizes or different pretrained WEs in C1 and pretrained transformers in C2, doing hyper-parameter search is necessary. We directly inherited the hyper-parameters used on XLING for experiments on PanLex-BLI, but we think if there is a dev set, hyper-parameter search can derive extra gains.
-
-1. For C1, you might use valid_every = 10 to track the BLI performance when doing hyper-parameter search. If the BLI accuracy score (on your dev set) in each training epoch drops from some point, then reduce num_games, lr, or gamma in C1/src/main.py; otherwise you may increase them.
+When running experiments on a different dataset, on different language pairs or having different BLI settings such as dictionary sizes, word embeddings (WEs) or pretrained LMs, doing hyper-parameter search in both Stage C1 and Stage C2 is necessary, whenever a dev set is available.
+ 
+1. In C1, you might use valid_every = 10 to track the BLI performance when doing hyper-parameter search. If the BLI accuracy score (on your dev set) in each training epoch obviously drops from some point, then reduce num_games, lr, or gamma in C1/src/main.py; otherwise you may increase them.
 
 2. In C1, when having a different train_size (other than 1k and 5k), we would recommend to tune num_sl, num_aug, and dico_max_rank (in C1/src/main.py) on your dev set. Besides, you may need to modify sup_batch_size and mini_batch_size according to your train_size.
 
-3. lambda_ in C2/run_all.py is possibly sensitive to typologically remote language pairs, especially for those including low-resource languages. We recommend to tune lambda_ in these cases.
+3. lambda_ in C2/run_all.py is possibly sensitive to typologically remote language pairs, especially for those including lower-resource languages. We recommend to tune lambda_ in these cases.
 
 ## Known Issues:
 
