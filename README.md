@@ -6,7 +6,7 @@ Yaoyiran Li, Fangyu Liu, Nigel Collier, Anna Korhonen and Ivan Vulić. 2022. *Im
 
 ![C2](model.png "C2")
 
-The work addresses the problem of Bilingual Lexicon Induction (BLI) / Word Translation. Our method consists of two stages: C1 and C2. Stage C1 uses static word embeddings (e.g. fastText) only. As an independent model, C1 can be evaluated separately and thus serves as a strong fastText-based baseline for BLI tasks. Stage C2 leverages both C1-aligned cross-lingual word embeddings (CLWEs) and pretrained multilingual LMs such as mBERT/XLM/mT5 to further improve the BLI performance. Of course, C2 is compatible with other CLWE models: you could instead use, say, VecMap or RCSLS to derive CLWEs which can then replace C1-aligned CLWEs in C2!    
+The work addresses the problem of Bilingual Lexicon Induction (BLI) / Word Translation. Our method consists of two consecutive stages, i.e. C1 and C2: each stage can learn its own cross-lingual word embeddings (CLWEs). Stage C1 uses static word embeddings (e.g. fastText) only. As an independent model, C1 can be evaluated separately and thus serves as a strong fastText-based baseline for BLI tasks. Stage C2 leverages both C1-aligned CLWEs, and a pretrained multilingual LM such as mBERT / XLM / mT5 to further improve the BLI performance. Of course, C2 is compatible with other CLWE models: you could instead use, say, VecMap or RCSLS to derive CLWEs which can then replace C1-aligned CLWEs in C2!    
 
 ## Dependencies:
 
