@@ -67,7 +67,7 @@ When running experiments on a different dataset, on different language pairs or 
 ## Encode Words with mBERT(tuned):
 Here is a simple example to encode word with mBERT. We uploaded to Huggingface two mBERT models tuned with BLI-oriented loss:  [cambridgeltl/c2_mbert_de2tr_5k](cambridgeltl/c2_mbert_de2tr_5k) and [cambridgeltl/c2_mbert_de2tr_1k](cambridgeltl/c2_mbert_de2tr_1k).
 
-```
+```python
 import torch
 from transformers import AutoTokenizer, AutoModel
 
@@ -92,10 +92,11 @@ It is reported that T5/mT5 produce "nan" outputs under mixed-precision or fp16 m
 Part of our code is adapted from the following GitHub repos: [XLING](https://github.com/codogogo/xling-eval), [RCSLS](https://github.com/facebookresearch/fastText/tree/main/alignment), [VecMap](https://github.com/artetxem/vecmap), [Mirror-BERT](https://github.com/cambridgeltl/mirror-bert) and [ECNMT](https://github.com/cambridgeltl/ECNMT). 
 
 ## If you find our paper and resources useful, please kindly cite our paper:
-
+```bibtex
     @inproceedings{YL:BLI2022,
       author    = {Yaoyiran Li and Fangyu Liu and Nigel Collier and Anna Korhonen and Ivan Vulić},
       title     = {Improving Word Translation via Two-Stage Contrastive Learning},
       year      = {2022},
       booktitle = {Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics},
     }
+```
