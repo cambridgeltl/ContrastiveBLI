@@ -64,7 +64,7 @@ When running experiments on a different dataset, on different language pairs or 
 
 3. lambda_ in C2/run_all.py is possibly sensitive to typologically remote language pairs, especially for those including lower-resource languages. We recommend to tune lambda_ in these cases.
 
-## Encode Words with mBERT(tuned):
+## Sample Code A. Encode Words with mBERT(tuned):
 Here is a simple example to encode words with mBERT. We uploaded to Huggingface two mBERT models tuned with BLI-oriented loss for the language pair DE-TR:  [cambridgeltl/c2_mbert_de2tr_5k](cambridgeltl/c2_mbert_de2tr_5k) and [cambridgeltl/c2_mbert_de2tr_1k](cambridgeltl/c2_mbert_de2tr_1k).
 
 ```python
@@ -79,8 +79,24 @@ model = AutoModel.from_pretrained(model_name)
 
 words = ["durch","benutzen","tarafından","kullanım"]
 toks = tokenizer.batch_encode_plus(words, max_length = maxlen, truncation = True, padding="max_length", return_tensors="pt")      
-outputs = model(**toks, output_hidden_states=True).last_hidden_state[:,0,:] 
-outputs = outputs / (torch.norm(outputs, dim=1, keepdim=True) + 1e-9 )
+mbert_features = model(**toks, output_hidden_states=True).last_hidden_state[:,0,:] 
+mbert_features = outputs / (torch.norm(outputs, dim=1, keepdim=True) + 1e-9 )
+```
+
+## Sample Code B. Mix C1 & C2 Features, and Calculate Word Similarities: 
+Suppose we have C1-aligned CLWEs and mbert(tuned) features for a source langugae and target language respectively. A quick way to calculate source-target word similarities is as follows: 
+```python
+lambda = 0.2
+# clwe_source and clwe_target are normalised C1-aligned WEs already mapped from the original 300-dim space (fastText) to a 700-dim space (mBERT) via Procrustes.
+source_feature = (1.0 - lambda) * clwe_source  + lambda * mbert_features_source 
+target_feature = (1.0 - lambda) * clwe_target  + lambda * mbert_features_target
+
+# then normalise them
+source_feature = source_feature / (torch.norm(source_feature, dim=1, keepdim=True) + 1e-9 )
+target_feature = target_feature / (torch.norm(target_feature, dim=1, keepdim=True) + 1e-9 )
+
+#calculate word similarities
+similarities = source_feature @ target_feature.T
 ```
 
 ## Known Issues:
