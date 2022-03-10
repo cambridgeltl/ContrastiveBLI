@@ -65,7 +65,7 @@ When running experiments on a different dataset, on different language pairs or 
 3. lambda_ in C2/run_all.py is possibly sensitive to typologically remote language pairs, especially for those including lower-resource languages. We recommend to tune lambda_ in these cases.
 
 ## Encode Words with mBERT(tuned):
-Here is a simple example to encode word with mBERT. We uploaded to Huggingface two mBERT models tuned with BLI-oriented loss:  [cambridgeltl/c2_mbert_de2tr_5k](cambridgeltl/c2_mbert_de2tr_5k) and [cambridgeltl/c2_mbert_de2tr_1k](cambridgeltl/c2_mbert_de2tr_1k).
+Here is a simple example to encode words with mBERT. We uploaded to Huggingface two mBERT models tuned with BLI-oriented loss for the language pair DE-TR:  [cambridgeltl/c2_mbert_de2tr_5k](cambridgeltl/c2_mbert_de2tr_5k) and [cambridgeltl/c2_mbert_de2tr_1k](cambridgeltl/c2_mbert_de2tr_1k).
 
 ```python
 import torch
