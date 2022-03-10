@@ -83,11 +83,11 @@ mbert_features = model(**toks, output_hidden_states=True).last_hidden_state[:,0,
 mbert_features = outputs / (torch.norm(outputs, dim=1, keepdim=True) + 1e-9 )
 ```
 
-## Sample Code B. Mix C1 & C2 Features: 
-Suppose we have C1-aligned CLWEs and mbert(tuned) features for a source langugae and target language respectively. A quick way to calculate source-target word similarities is as follows: 
+## Sample Code B. Mix C1 & mBERT Features: 
+Suppose we have C1-aligned CLWEs and mbert(tuned) features for a source langugae and a target language respectively. In Stage C2, we comebine them as follows.
 ```python
 lambda = 0.2
-# c1_feature_source and c1_feature_target, of size (n, 768), are normalised C1-aligned CLWEs already mapped from the original 300-dim space (fastText) to a 768-dim space (mBERT) via Procrustes.
+# c1_feature_source and c1_feature_target, of size (n, 768), are C1-aligned CLWEs already mapped from the original 300-dim space (fastText) to a 768-dim space (mBERT) via Procrustes, normalised.
 c2_feature_source = (1.0 - lambda) * c1_feature_source  + lambda * mbert_features_source 
 c2_feature_target = (1.0 - lambda) * c1_feature_target  + lambda * mbert_features_target
 
