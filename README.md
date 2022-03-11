@@ -87,23 +87,23 @@ mbert_features = outputs / (torch.norm(outputs, dim=1, keepdim=True) + 1e-9 )
 Suppose we have C1-aligned CLWEs and mbert(tuned) features for a source langugae and a target language respectively. In Stage C2, we comebine them as follows.
 ```python
 lambda = 0.2
-# c1_feature_source and c1_feature_target, of size (n, 768), are C1-aligned CLWEs already mapped from the original 300-dim space (fastText) to a 768-dim space (mBERT) via Procrustes, normalised.
-c2_feature_source = (1.0 - lambda) * c1_feature_source  + lambda * mbert_features_source 
-c2_feature_target = (1.0 - lambda) * c1_feature_target  + lambda * mbert_features_target
+# c1_features_source and c1_features_target, of size (n, 768), are C1-aligned CLWEs already mapped from the original 300-dim space (fastText) to a 768-dim space (mBERT) via Procrustes, normalised.
+c2_features_source = (1.0 - lambda) * c1_features_source  + lambda * mbert_features_source 
+c2_features_target = (1.0 - lambda) * c1_features_target  + lambda * mbert_features_target
 
 # then normalise them
-c2_feature_source = c2_feature_source / (torch.norm(c2_feature_source, dim=1, keepdim=True) + 1e-9 )
-c2_feature_target = c2_feature_target / (torch.norm(c2_feature_target, dim=1, keepdim=True) + 1e-9 )
+c2_features_source = c2_features_source / (torch.norm(c2_features_source, dim=1, keepdim=True) + 1e-9 )
+c2_features_target = c2_features_target / (torch.norm(c2_features_target, dim=1, keepdim=True) + 1e-9 )
 ```
 ## Sample Code C. Word Translation:
 Here is a simple implementation of source->target word translation via NN retrieval (for CSLS retrieval, see ./C1/util.py). Note that Stage C1 can be evaluated independently.
 ```python
-# Stage C1: c1_feature_source and c1_feature_target are of size (n, 300) before Procrustes mapping, normalised. 
-sims_source_to_target = c1_feature_source @ c1_feature_target.T
+# Stage C1: c1_features_source and c1_features_target are of size (n, 300) before Procrustes mapping, normalised. 
+sims_source_to_target = c1_features_source @ c1_features_target.T
 target_predict = torch.argmax(sims_source_to_target, dim=1)
  
-# Stage C2: c2_feature_source and c2_feature_target are of size (n, 768), normalised.
-sims_source_to_target = c2_feature_source @ c2_feature_target.T
+# Stage C2: c2_features_source and c2_features_target are of size (n, 768), normalised.
+sims_source_to_target = c2_features_source @ c2_features_target.T
 target_predict = torch.argmax(sims_source_to_target, dim=1)
 ```
 
