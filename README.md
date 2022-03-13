@@ -34,10 +34,10 @@ sh run_all.sh
 ```
 Both Stage C1 and Stage C2 will output 4 scores in a single run. For a language pair (L1, L2), you will get the following 4 scores together: 
 
--(1) P@1 via NN retrieval for L1->L2; 
--(2) P@1 via CSLS retrieval for L1->L2; 
--(3) P@1 via NN retrieval for L2->L1; 
--(4) P@1 via CSLS retrieval for L2->L1.
+- (1) P@1 via NN retrieval for L1->L2; 
+- (2) P@1 via CSLS retrieval for L1->L2; 
+- (3) P@1 via NN retrieval for L2->L1; 
+- (4) P@1 via CSLS retrieval for L2->L1.
 
 ## Environment Setup:
 
