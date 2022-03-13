@@ -32,7 +32,7 @@ Stage C2 (Training and Evaluation over 28 language pairs in both directions):
 cd C2
 sh run_all.sh
 ```
-Since our method is symmetric, it is not needed to run source->target and target->source translation separately. Both Stage C1 and Stage C2 will output 4 scores in a single run, for each language pair. E.g., for a language pair (L1, L2), you will get the following 4 scores together: 
+Since our method is symmetric, it is not needed to run source->target and target->source translation separately. Each of Stage C1 and Stage C2 will output 4 scores in a single run, for each language pair. I.e., for a language pair (L1, L2), you will get the following 4 scores together: 
 1. P@1 via NN retrieval for L1->L2; 
 2. P@1 via CSLS retrieval for L1->L2; 
 3. P@1 via NN retrieval for L2->L1; 
