@@ -85,7 +85,7 @@ model = AutoModel.from_pretrained(model_name)
 
 words = ["durch","benutzen","tarafından","kullanım"]
 toks = tokenizer.batch_encode_plus(words, max_length = maxlen, truncation = True, padding="max_length", return_tensors="pt")      
-mbert_features = model(**toks, output_hidden_states=True).last_hidden_state[:,0,:] 
+outputs = model(**toks, output_hidden_states=True).last_hidden_state[:,0,:] 
 mbert_features = outputs / (torch.norm(outputs, dim=1, keepdim=True) + 1e-9 )
 ```
 
