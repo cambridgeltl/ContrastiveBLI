@@ -2,7 +2,7 @@
 
 This repository is the official PyTorch implementation of the following paper: 
 
-Yaoyiran Li, Fangyu Liu, Nigel Collier, Anna Korhonen, and Ivan Vulić. 2022. *Improving Word Translation via Two-Stage Contrastive Learning*. In Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (ACL 2022). [LINK](https://openreview.net/pdf?id=ycgOlOnbbMq)
+Yaoyiran Li, Fangyu Liu, Nigel Collier, Anna Korhonen, and Ivan Vulić. 2022. *Improving Word Translation via Two-Stage Contrastive Learning*. In Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (ACL 2022). [LINK](https://arxiv.org/abs/2203.08307)
 
 ![C2](model.png "C2")
 
