@@ -6,7 +6,7 @@ Yaoyiran Li, Fangyu Liu, Nigel Collier, Anna Korhonen, and Ivan Vulić. 2022. *I
 
 ![C2](model.png "C2")
 
-The work addresses the problem of Bilingual Lexicon Induction (BLI) / Word Translation. Our method consists of two consecutive stages, i.e. C1 and C2: each stage can learn its own cross-lingual word embeddings (CLWEs). Stage C1 uses static word embeddings (e.g. fastText) only. As an independent model, C1 can be evaluated separately and thus serves as a strong fastText-based baseline for BLI tasks. Stage C2 leverages both C1-aligned CLWEs, and a pretrained multilingual LM such as mBERT / XLM / mT5 to further improve the BLI performance. Of course, C2 is compatible with other CLWE models: you could instead use, say, VecMap or RCSLS to derive CLWEs which can then replace C1-aligned CLWEs in C2!    
+The work addresses the problem of Bilingual Lexicon Induction (BLI) / Word Translation. Our method consists of two consecutive stages, i.e., C1 and C2: each stage can learn its own cross-lingual word embeddings (CLWEs). Stage C1 uses static word embeddings (e.g., fastText) only. As an independent model, C1 can be evaluated separately and thus serves as a strong fastText-based baseline for BLI tasks. Stage C2 leverages both C1-aligned CLWEs, and a pretrained multilingual LM such as mBERT / XLM / mT5 to further improve the BLI performance. Of course, C2 is compatible with other CLWE models: you could instead use, say, VecMap or RCSLS to derive CLWEs which can then replace C1-aligned CLWEs in C2!    
 
 ## Dependencies:
 
@@ -112,6 +112,10 @@ target_predict = torch.argmax(sims_source_to_target, dim=1)
 sims_source_to_target = c2_features_source @ c2_features_target.T
 target_predict = torch.argmax(sims_source_to_target, dim=1)
 ```
+
+## Baseline Methods:
+
+The four baselines covered in our experiments are [RCSLS](https://github.com/facebookresearch/fastText/tree/main/alignment), [VecMap](https://github.com/artetxem/vecmap), [LNMap](https://github.com/taasnim/lnmap) and [FIPP](https://github.com/vinsachi/FIPPCLE). When running these codes, we follow their own original settings and hyperparamter values suggested in their respective repositories: e.g., using each method's own word embedding preprocessing method, self-learning algorithm (VecMap, LNMap and FIPP), and hyperparameter values recommended respectively for supervised (5k) and semi-supervised (1k) settings (e.g., VecMap recommends to switch of self-learning in supervised setups). We verified that these suggested settings yield (near-)optimal BLI performance.  
 
 ## Known Issues:
 
