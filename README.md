@@ -115,7 +115,7 @@ target_predict = torch.argmax(sims_source_to_target, dim=1)
 
 ## Baseline Methods:
 
-The four baselines covered in our experiments are [RCSLS](https://github.com/facebookresearch/fastText/tree/main/alignment), [VecMap](https://github.com/artetxem/vecmap), [LNMap](https://github.com/taasnim/lnmap) and [FIPP](https://github.com/vinsachi/FIPPCLE). When running these codes, we follow their own original settings and hyperparamter values suggested in their respective repositories: e.g., using each method's own word embedding preprocessing method, self-learning algorithm (VecMap, LNMap and FIPP), and hyperparameter values recommended respectively for supervised (5k) and semi-supervised (1k) settings (e.g., VecMap recommends to switch of self-learning in supervised setups). We verified that these suggested settings yield (near-)optimal BLI performance.  
+The four baselines covered in our experiments are [RCSLS](https://github.com/facebookresearch/fastText/tree/main/alignment), [VecMap](https://github.com/artetxem/vecmap), [LNMap](https://github.com/taasnim/lnmap) and [FIPP](https://github.com/vinsachi/FIPPCLE). When running these baseline models, we follow their own original settings and hyperparamter values suggested in their respective repositories: e.g., using each method's own word embedding preprocessing method, self-learning algorithm (VecMap, LNMap and FIPP), and hyperparameter values recommended respectively for supervised (5k) and semi-supervised (1k) settings (e.g., VecMap recommends to switch of self-learning in supervised setups). We verified that these suggested settings yield (near-)optimal BLI performance.  
 
 ## Known Issues:
 
