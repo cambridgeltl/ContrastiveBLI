@@ -20,7 +20,7 @@ Our data are obtained from the [XLING repo](https://github.com/codogogo/xling-ev
 ```bash
 sh get_data.sh
 ```
-Please make sure that the input and output directories are correctly set before running the code. See [./SetDirectories.md](https://github.com/cambridgeltl/ContrastiveBLI/SetDirectories.md) for details. 
+Please make sure that the input and output directories are correctly set before running the code. See [./SetDirectories.md](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/SetDirectories.md) for details. 
 
 ## Run the Code:
 Stage C1 (Training and Evaluation over 28 language pairs in both directions):
