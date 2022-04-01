@@ -6,19 +6,21 @@ Yaoyiran Li, Fangyu Liu, Nigel Collier, Anna Korhonen, and Ivan Vulić. 2022. *I
 
 ![C2](model.png "C2")
 
-The work addresses the problem of Bilingual Lexicon Induction (BLI) / Word Translation. Our method consists of two consecutive stages, i.e., C1 and C2: each stage can learn its own cross-lingual word embeddings (CLWEs). Stage C1 uses static word embeddings (e.g., fastText) only. As an independent model, C1 can be evaluated separately and thus serves as a strong fastText-based baseline for BLI tasks. Stage C2 leverages both C1-aligned CLWEs, and a pretrained multilingual LM such as mBERT / XLM / mT5 to further improve the BLI performance. Of course, C2 is compatible with other CLWE models: you could instead use, say, VecMap or RCSLS to derive CLWEs which can then replace C1-aligned CLWEs in C2!    
+ContrastiveBLI addresses the problem of Bilingual Lexicon Induction (BLI) / Word Translation. Our method consists of two consecutive stages, i.e., C1 and C2: each stage can learn its own cross-lingual word embeddings (CLWEs). Stage C1 uses static word embeddings (e.g., fastText) only. As an independent model, C1 can be evaluated separately and thus can serve as a strong fastText-based baseline for BLI tasks. Stage C2 leverages both C1-aligned CLWEs, and a pretrained multilingual LM such as mBERT / XLM / mT5 to further improve the BLI performance. Of course, C2 is compatible with other CLWE models: you could instead use, say, VecMap or RCSLS to derive CLWEs which can then replace C1-aligned CLWEs in C2!    
+
+Our code currently supports both supervised (e.g., with 5k seed translation pairs) and semi-supervised/weakly supervised (e.g., with 1k seed translation pairs) BLI tasks.
 
 ## Dependencies:
 
 - PyTorch 1.7.0
 - Transformers 4.4.2
 
-## Get Data:
+## Get Data and Set Input/Output Directories:
 Our data are obtained from the [XLING repo](https://github.com/codogogo/xling-eval), and we include some simple codes to download its BLI dictionaries and preprocessed word embeddings.
 ```bash
 sh get_data.sh
 ```
-
+Please make sure that the input and output directories are correctly set before running the code. See [./SetDirectories](https://github.com/cambridgeltl/ContrastiveBLI/SetDirectories) for details. 
 
 ## Run the Code:
 Stage C1 (Training and Evaluation over 28 language pairs in both directions):
@@ -119,13 +121,13 @@ The four baselines covered in our experiments are [RCSLS](https://github.com/fac
 
 ## Known Issues:
 
-It is reported that T5/mT5 produces "nan" outputs under mixed-precision or fp16 mode when using some Transformer versions ([ISSUE](https://discuss.huggingface.co/t/t5-fp16-issue-is-fixed/3139)). Our code also suffers from this issue. When running Stage C2 with mT5, we recommend to switch off amp by commenting line 54 in ./C2/src/metric_learning.py.
+It is reported that T5/mT5 produces "NaN" outputs under mixed-precision or fp16 mode when using some Transformer versions ([ISSUE](https://discuss.huggingface.co/t/t5-fp16-issue-is-fixed/3139)). Our code also suffers from this issue. When running Stage C2 with mT5, we recommend to switch off torch.cuda.amp (Automatic Mixed Precision) by commenting line 54 in [./C2/src/metric_learning.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C2/src/metric_learning.py).
 
 ## Acknowledgements:
 
 Part of our code is adapted from the following GitHub repos: [XLING](https://github.com/codogogo/xling-eval), [RCSLS](https://github.com/facebookresearch/fastText/tree/main/alignment), [VecMap](https://github.com/artetxem/vecmap), [Mirror-BERT](https://github.com/cambridgeltl/mirror-bert) and [ECNMT](https://github.com/cambridgeltl/ECNMT). 
 
-## If you find our paper and resources useful, please kindly cite our paper:
+## If you find our paper and resources useful, please kindly cite our work:
 ```bibtex
 @inproceedings{YL:BLI2022,
     author    = {Yaoyiran Li and Fangyu Liu and Nigel Collier and Anna Korhonen and Ivan Vulić},
