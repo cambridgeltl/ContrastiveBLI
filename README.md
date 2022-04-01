@@ -66,11 +66,11 @@ sh setup.sh
 
 When running experiments on a different dataset, on different language pairs or having different BLI settings such as dictionary sizes, word embeddings (WEs) or pretrained LMs, doing hyper-parameter search in both Stage C1 and Stage C2 is necessary, whenever a dev set is available.
  
-1. In C1, you might use valid_every = 10 to track the BLI performance when doing hyper-parameter search. If the BLI accuracy score (on your dev set) in each training epoch obviously drops from some point, then reduce num_games, lr, or gamma in C1/src/main.py; otherwise you may increase them.
+1. In C1, you might use valid_every = 10 to track the BLI performance when doing hyper-parameter search. If the BLI accuracy score (on your dev set) in each training epoch obviously drops from some point, then reduce num_games, lr, or gamma in [./C1/src/main.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C1/src/main.py); otherwise you may increase them.
 
-2. In C1, when having a different train_size (other than 1k and 5k), we would recommend to tune num_sl, num_aug, and dico_max_rank (in C1/src/main.py) on your dev set. Besides, you may need to modify sup_batch_size and mini_batch_size according to your train_size.
+2. In C1, when having a different train_size (other than 1k and 5k), we would recommend to tune num_sl, num_aug, and dico_max_rank (in [./C1/src/main.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C1/src/main.py)) on your dev set. Besides, you may need to modify sup_batch_size and mini_batch_size according to your train_size.
 
-3. lambda_ in C2/run_all.py is possibly sensitive to typologically remote language pairs, especially for those including lower-resource languages. We recommend to tune lambda_ in these cases.
+3. lambda_ in [./C2/run_all.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C2/run_all.py) is possibly sensitive to typologically remote language pairs, especially for those including lower-resource languages. We recommend to tune lambda_ in these cases.
 
 ## Sample Code A. Encode Words with mBERT(tuned):
 Here is a simple example to encode words with mBERT. We uploaded to Huggingface two mBERT models tuned with BLI-oriented loss for the language pair DE-TR:  [cambridgeltl/c2_mbert_de2tr_5k](cambridgeltl/c2_mbert_de2tr_5k) and [cambridgeltl/c2_mbert_de2tr_1k](cambridgeltl/c2_mbert_de2tr_1k).
