@@ -16,7 +16,7 @@ Our code currently supports both supervised (e.g., with 5k seed translation pair
 - Transformers 4.4.2
 
 ## Get Data and Set Input/Output Directories:
-Our data are obtained from the [XLING repo](https://github.com/codogogo/xling-eval), and we include some simple codes to download its BLI dictionaries and preprocessed word embeddings.
+Our data are obtained from the [XLING repo](https://github.com/codogogo/xling-eval), and we include a simple script to download its BLI dictionaries and preprocessed word embeddings.
 ```bash
 sh get_data.sh
 ```
