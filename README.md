@@ -73,7 +73,7 @@ When running experiments on a different dataset, on different language pairs or 
 3. lambda_ in [./C2/run_all.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C2/run_all.py) is possibly sensitive to typologically remote language pairs, especially for those including lower-resource languages. We recommend to tune lambda_ in these cases.
 
 ## Sample Code A. Encode Words with mBERT(tuned):
-Here is a simple example to encode words with mBERT. We uploaded to Huggingface two mBERT models tuned with BLI-oriented loss for the language pair DE-TR:  [cambridgeltl/c2_mbert_de2tr_5k](cambridgeltl/c2_mbert_de2tr_5k) and [cambridgeltl/c2_mbert_de2tr_1k](cambridgeltl/c2_mbert_de2tr_1k).
+Here is a simple example to encode words with mBERT. We uploaded to Huggingface two mBERT models tuned with BLI-oriented loss for the language pair DE-TR:  [cambridgeltl/c2_mbert_de2tr_5k](https://huggingface.co/cambridgeltl/c2_mbert_de2tr_5k) and [cambridgeltl/c2_mbert_de2tr_1k](https://huggingface.co/cambridgeltl/c2_mbert_de2tr_1k).
 
 ```python
 import torch
@@ -104,7 +104,7 @@ c2_features_source = c2_features_source / (torch.norm(c2_features_source, dim=1,
 c2_features_target = c2_features_target / (torch.norm(c2_features_target, dim=1, keepdim=True) + 1e-9 )
 ```
 ## Sample Code C. Word Translation:
-Here is a simple implementation of source->target word translation via NN retrieval (for CSLS retrieval, see ./C1/util.py). Note that Stage C1 can be evaluated independently.
+Here is a simple implementation of source->target word translation via NN retrieval (for CSLS retrieval, see [./C1/util.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C1/src/util.py)). Note that Stage C1 can be evaluated independently.
 ```python
 # Stage C1: c1_features_source and c1_features_target are of size (n, 300) before Procrustes mapping, normalised. 
 sims_source_to_target = c1_features_source @ c1_features_target.T
@@ -127,7 +127,8 @@ It is reported that T5/mT5 produces "NaN" outputs under mixed-precision or fp16 
 
 Part of our code is adapted from the following GitHub repos: [XLING](https://github.com/codogogo/xling-eval), [RCSLS](https://github.com/facebookresearch/fastText/tree/main/alignment), [VecMap](https://github.com/artetxem/vecmap), [Mirror-BERT](https://github.com/cambridgeltl/mirror-bert) and [ECNMT](https://github.com/cambridgeltl/ECNMT). 
 
-## If you find our paper and resources useful, please kindly cite our work:
+## Citation:
+If you find our paper and resources useful, please kindly cite our work.
 ```bibtex
 @inproceedings{YL:BLI2022,
     author    = {Yaoyiran Li and Fangyu Liu and Nigel Collier and Anna Korhonen and Ivan Vulić},
