@@ -6,9 +6,9 @@ Yaoyiran Li, Fangyu Liu, Nigel Collier, Anna Korhonen, and Ivan Vulić. 2022. *I
 
 ![C2](model.png "C2")
 
-ContrastiveBLI addresses the problem of Bilingual Lexicon Induction (BLI) / Word Translation. Our method consists of two consecutive stages, i.e., C1 and C2: each stage can learn its own cross-lingual word embeddings (CLWEs). Stage C1 uses static word embeddings (e.g., fastText) only. As an independent model, C1 can be evaluated separately and thus can serve as a strong fastText-based baseline for BLI tasks. Stage C2 leverages both C1-aligned CLWEs, and a pretrained multilingual LM such as mBERT / XLM / mT5 to further improve the BLI performance. Of course, C2 is compatible with other CLWE models: you could instead use, say, VecMap or RCSLS to derive CLWEs which can then replace C1-aligned CLWEs in C2!    
+ContrastiveBLI addresses the problem of Bilingual Lexicon Induction (BLI) / Word Translation. Our method consists of two consecutive stages, i.e., C1 and C2: both stages rely on contrastive learning, and each stage can learn its own cross-lingual word embeddings (CLWEs). Stage C1 uses static word embeddings (e.g., fastText) only. As an independent model, C1 can be evaluated separately and thus can serve as a strong fastText-based baseline for BLI tasks. Stage C2 leverages both C1-aligned CLWEs, and a pretrained multilingual LM such as mBERT / XLM / mT5 to further improve the BLI performance. Of course, C2 is compatible with other CLWE models: you could instead use, say, VecMap or RCSLS to derive CLWEs which can then replace C1-aligned CLWEs in C2!    
 
-Our code currently supports both supervised (e.g., with 5k seed translation pairs) and semi-supervised/weakly supervised (e.g., with 1k seed translation pairs) BLI tasks.
+Our code currently supports both supervised (e.g., with 5k seed translation pairs) and semi-supervised/weakly supervised (e.g., with 1k seed translation pairs) BLI setups.
 
 ## Dependencies:
 
@@ -128,7 +128,7 @@ It is reported that T5/mT5 produces "NaN" outputs under mixed-precision or fp16 
 Part of our code is adapted from the following GitHub repos: [XLING](https://github.com/codogogo/xling-eval), [RCSLS](https://github.com/facebookresearch/fastText/tree/main/alignment), [VecMap](https://github.com/artetxem/vecmap), [Mirror-BERT](https://github.com/cambridgeltl/mirror-bert) and [ECNMT](https://github.com/cambridgeltl/ECNMT). 
 
 ## Citation:
-If you find our paper and resources useful, please kindly cite our work.
+If you find our paper and resources useful, please cite our work and ⭐ this repo.
 ```bibtex
 @inproceedings{YL:BLI2022,
     author    = {Yaoyiran Li and Fangyu Liu and Nigel Collier and Anna Korhonen and Ivan Vulić},
