@@ -121,7 +121,7 @@ The four baselines covered in our experiments are [RCSLS](https://github.com/fac
 
 ## Known Issues:
 
-It is reported that T5/mT5 produces "NaN" outputs under mixed-precision or fp16 mode when using some Transformer versions ([ISSUE](https://discuss.huggingface.co/t/t5-fp16-issue-is-fixed/3139)). Our code also suffers from this issue. When running Stage C2 with mT5, we recommend to switch off torch.cuda.amp (Automatic Mixed Precision) by commenting line 54 in [./C2/src/metric_learning.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C2/src/metric_learning.py).
+It is reported that T5/mT5 produces "NaN" outputs under mixed-precision or fp16 mode when using some Transformer versions ([ISSUE](https://discuss.huggingface.co/t/t5-fp16-issue-is-fixed/3139)). Our code also suffers from this issue. When running Stage C2 with mT5, we recommend to switch off torch.cuda.amp (Automatic Mixed Precision) by commenting out line 54 in [./C2/src/metric_learning.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C2/src/metric_learning.py).
 
 ## Acknowledgements:
 
