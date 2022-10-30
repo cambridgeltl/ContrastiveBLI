@@ -5,7 +5,7 @@ This repository is the official PyTorch implementation of the following paper:
 Yaoyiran Li, Fangyu Liu, Nigel Collier, Anna Korhonen, and Ivan Vulić. 2022. *Improving Word Translation via Two-Stage Contrastive Learning*. In Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (ACL 2022). [[arXiv]](https://arxiv.org/abs/2203.08307)
 
 
-**ContrastiveBLI** addresses the problem of Bilingual Lexicon Induction (BLI) / Word Translation. Our method consists of two consecutive stages, i.e., C1 and C2: both stages rely on contrastive learning, and each stage can learn its own cross-lingual word embeddings (CLWEs). Stage C1 uses static word embeddings (e.g., fastText) only. As an independent model, C1 can be evaluated separately and thus can serve as a strong fastText-based baseline for BLI tasks. Stage C2 leverages both C1-aligned CLWEs, and a pretrained multilingual LM such as mBERT / XLM / mT5 to further improve the BLI performance. Of course, C2 is compatible with other standard BLI methods: you could instead use, say, VecMap or RCSLS to derive CLWEs which can then replace C1-aligned CLWEs in C2!    
+**ContrastiveBLI** addresses the problem of Bilingual Lexicon Induction (BLI) / Word Translation. Our method consists of two consecutive stages, i.e., C1 and C2: both stages rely on contrastive learning, and each stage can learn its own cross-lingual word embeddings (CLWEs). Stage C1 uses static word embeddings (e.g., fastText) only. As an independent model, C1 can be evaluated separately and thus can serve as a strong fastText-based baseline for BLI tasks. Stage C2 leverages both C1-aligned CLWEs, and a pretrained multilingual LM such as mBERT / XLM / mT5, used as **Bi-encoders / Siamese-encoders**, to further improve the BLI performance. Of course, C2 is compatible with other standard BLI methods: you could instead use, say, VecMap or RCSLS to derive CLWEs which can then replace C1-aligned CLWEs in C2!    
 
 <p align="center">
   <img width="650" src="model.png">
@@ -13,9 +13,11 @@ Yaoyiran Li, Fangyu Liu, Nigel Collier, Anna Korhonen, and Ivan Vulić. 2022. *I
 
 Our code is tested on both supervised (e.g., with 5k seed translation pairs) and semi-supervised/weakly supervised (e.g., with 1k seed translation pairs) BLI setups. You could specify the seed dictionary size in [./C1/run_all.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C1/run_all.py) and [./C2/run_all.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C2/run_all.py).
 
+In addition to BLI, we encourage interested readers to try C1-aligned 300-dim (fastText) CLWEs and C2-aligned 768-dim (fastText + mBERT) CLWEs on different downstream cross-lingual transfer learning tasks.
+
 ## Follow-up Work:
 
-**Update**: please see our follow-up work [BLICEr](https://github.com/cambridgeltl/BLICEr) (Findings of EMNLP 2022) where we further improve BLI with post-hoc reranking, applicable to any precalculated CLWE space.
+**Update**: please see our follow-up work [BLICEr](https://github.com/cambridgeltl/BLICEr) (Findings of EMNLP 2022) where we further improve BLI with post-hoc reranking, applicable to any precalculated CLWE space. Specifically, [BLICEr](https://github.com/cambridgeltl/BLICEr) first retrieve contrastive word pairs (positive and negative) and then fine-tune multilingual LMs into [Cross-encoders](https://www.sbert.net/examples/applications/cross-encoder/README.html#bi-encoder-vs-cross-encoder) to refine the cross-lingual similarity scores predicted by the CLWEs.
 
 ## Dependencies:
 
@@ -141,6 +143,16 @@ Please cite our paper if you find **ContrastiveBLI** useful. If you like our wor
     title     = {Improving Word Translation via Two-Stage Contrastive Learning},
     author    = {Li, Yaoyiran and Liu, Fangyu and Collier, Nigel and Korhonen, Anna and Vulić, Ivan},
     booktitle = {Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics},    
+    year      = {2022}
+}
+```
+
+Follow-up Work:
+```bibtex
+@inproceedings{li-etal-2022-bilingual,
+    title     = {Improving Bilingual Lexicon Induction with Cross-Encoder Reranking},
+    author    = {Li, Yaoyiran and Liu, Fangyu and Vulić, Ivan and Korhonen, Anna},
+    booktitle = {In Findings of the Association for Computational Linguistics: EMNLP 2022},    
     year      = {2022}
 }
 ```
