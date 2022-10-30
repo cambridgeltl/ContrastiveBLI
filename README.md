@@ -13,6 +13,10 @@ Yaoyiran Li, Fangyu Liu, Nigel Collier, Anna Korhonen, and Ivan Vulić. 2022. *I
 
 Our code is tested on both supervised (e.g., with 5k seed translation pairs) and semi-supervised/weakly supervised (e.g., with 1k seed translation pairs) BLI setups. You could specify the seed dictionary size in [./C1/run_all.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C1/run_all.py) and [./C2/run_all.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C2/run_all.py).
 
+## Follow-up Work:
+
+**Update**: please see our follow-up work [BLICEr](https://github.com/cambridgeltl/BLICEr) (Findings of EMNLP 2022) where we further improve BLI with post-hoc reranking.  
+
 ## Dependencies:
 
 - PyTorch >= 1.7.0
@@ -137,6 +141,6 @@ Please cite our paper if you find **ContrastiveBLI** useful. If you like our wor
     title     = {Improving Word Translation via Two-Stage Contrastive Learning},
     author    = {Li, Yaoyiran and Liu, Fangyu and Collier, Nigel and Korhonen, Anna and Vulić, Ivan},
     booktitle = {Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics},    
-    year      = {2022},
+    year      = {2022}
 }
 ```
