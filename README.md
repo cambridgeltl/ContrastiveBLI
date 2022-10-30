@@ -15,7 +15,7 @@ Our code is tested on both supervised (e.g., with 5k seed translation pairs) and
 
 ## Follow-up Work:
 
-**Update**: please see our follow-up work [BLICEr](https://github.com/cambridgeltl/BLICEr) (Findings of EMNLP 2022) where we further improve BLI with post-hoc reranking.  
+**Update**: please see our follow-up work [BLICEr](https://github.com/cambridgeltl/BLICEr) (Findings of EMNLP 2022) where we further improve BLI with post-hoc reranking, applicable to any precalculated CLWE space.
 
 ## Dependencies:
 
