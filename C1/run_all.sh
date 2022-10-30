@@ -1,1 +1,1 @@
-nohup python run_all.py>log.train &
+nohup python ./run_all.py 1>log.train &
