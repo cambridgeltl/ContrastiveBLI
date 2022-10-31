@@ -5,7 +5,7 @@ This repository is the official PyTorch implementation of the following paper:
 Yaoyiran Li, Fangyu Liu, Nigel Collier, Anna Korhonen, and Ivan Vulić. 2022. *Improving Word Translation via Two-Stage Contrastive Learning*. In Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (ACL 2022). [[arXiv]](https://arxiv.org/abs/2203.08307)
 
 
-**ContrastiveBLI** addresses the problem of Bilingual Lexicon Induction (BLI) / Word Translation. Our method consists of two consecutive stages, i.e., C1 and C2: both stages rely on contrastive learning, and each stage can learn its own cross-lingual word embeddings (CLWEs). Stage C1 uses static word embeddings (e.g., fastText) only. As an independent model, C1 can be evaluated separately and thus can serve as a strong fastText-based baseline for BLI tasks. Stage C2 leverages both C1-aligned CLWEs, and a pretrained multilingual LM such as mBERT / XLM / mT5, used as **Bi-encoders / Siamese-encoders**, to further improve the BLI performance. Of course, C2 is compatible with other standard BLI methods: you could instead use, say, VecMap or RCSLS to derive CLWEs which can then replace C1-aligned CLWEs in C2!    
+**ContrastiveBLI** addresses the problem of Bilingual Lexicon Induction (BLI) / Word Translation. Our method consists of two consecutive but independent stages, i.e., C1 and C2: both stages rely on contrastive learning, and each stage can learn its own cross-lingual word embeddings (CLWEs). **Stage C1** uses static word embeddings only (e.g., fastText). <ins>As an independent model, C1 can be evaluated separately and thus can serve as a strong fastText-based baseline for BLI tasks.</ins> **Stage C2** leverages both C1-aligned CLWEs, and a pretrained multilingual LM such as mBERT / XLM / mT5, used as **Bi-encoder / Siamese-encoder**, to further improve the BLI performance. Of course, C2 is compatible with other standard BLI methods: you could instead use, say, VecMap or RCSLS to derive CLWEs which can then replace C1-aligned CLWEs in C2!    
 
 <p align="center">
   <img width="650" src="model.png">
@@ -17,7 +17,7 @@ In addition to BLI, we encourage interested readers to try C1-aligned 300-dim (f
 
 ## Follow-up Work:
 
-**Update**: please see our follow-up work [BLICEr](https://github.com/cambridgeltl/BLICEr) (Findings of EMNLP 2022) where we further improve BLI with post-hoc reranking, applicable to any precalculated CLWE space. Specifically, [BLICEr](https://github.com/cambridgeltl/BLICEr) first retrieve contrastive word pairs (positive and negative) and then fine-tune multilingual LMs into [Cross-encoders](https://www.sbert.net/examples/applications/cross-encoder/README.html#bi-encoder-vs-cross-encoder) to refine the cross-lingual similarity scores predicted by the CLWEs.
+**Update**: please see our follow-up work [BLICEr](https://github.com/cambridgeltl/BLICEr) (Findings of EMNLP 2022) where we further improve BLI with post-hoc reranking, applicable to any precalculated CLWE space. Specifically, [BLICEr](https://github.com/cambridgeltl/BLICEr) first retrieve contrastive word pairs (positive and negative) and then use the word pairs to fine-tune multilingual LMs into [Cross-encoders](https://www.sbert.net/examples/applications/cross-encoder/README.html#bi-encoder-vs-cross-encoder) that can refine the cross-lingual similarity scores predicted by the CLWEs.
 
 ## Dependencies:
 
@@ -25,10 +25,12 @@ In addition to BLI, we encourage interested readers to try C1-aligned 300-dim (f
 - Transformers >= 4.4.2
 
 ## Get Data and Set Input/Output Directories:
-Our data are obtained from the [XLING repo](https://github.com/codogogo/xling-eval), and we include a simple script to download its BLI dictionaries and preprocessed word embeddings.
+The data for our main experiments are obtained from the [XLING](https://github.com/codogogo/xling-eval), and we include a simple script to download its BLI dictionaries and preprocessed word embeddings.
 ```bash
 sh get_data.sh
 ```
+We also evaluate BLI for <ins>lower-resource languages</ins> with [PanLex-BLI](https://github.com/cambridgeltl/panlex-bli) data. The code for deriving the monolingual word embeddings is available at [./Get_PanLex_Data](https://github.com/cambridgeltl/ContrastiveBLI/tree/main/Get_PanLex_Data).
+
 Please make sure that the input and output directories are correctly set before running the code. See [./SetDirectories.md](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/SetDirectories.md) for details. 
 
 ## Run the Code:
