@@ -25,11 +25,11 @@ In addition to BLI, we encourage interested readers to try C1-aligned 300-dim (f
 - Transformers >= 4.4.2
 
 ## Get Data and Set Input/Output Directories:
-The data for our main experiments are obtained from the [XLING](https://github.com/codogogo/xling-eval), and we include a simple script to download its BLI dictionaries and preprocessed word embeddings.
+The data for our main experiments are obtained from the [XLING](https://github.com/codogogo/xling-eval) (8 languages, 56 BLI directions in total), and we include a simple script to download its BLI dictionaries and preprocessed word embeddings.
 ```bash
 sh get_data.sh
 ```
-We also evaluate BLI for <ins>lower-resource languages</ins> with [PanLex-BLI](https://github.com/cambridgeltl/panlex-bli) data. The code for deriving the monolingual word embeddings is available at [./Get_PanLex_Data](https://github.com/cambridgeltl/ContrastiveBLI/tree/main/Get_PanLex_Data).
+We also evaluate BLI for <ins>lower-resource languages</ins> with a subset of [PanLex-BLI](https://github.com/cambridgeltl/panlex-bli) (15 lower-resource languages, 210 BLI directions in total) data. The code for deriving the monolingual word embeddings is available at [./Get_PanLex_Data](https://github.com/cambridgeltl/ContrastiveBLI/tree/main/Get_PanLex_Data).
 
 Please make sure that the input and output directories are correctly set before running the code. See [./SetDirectories.md](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/SetDirectories.md) for details. 
 
@@ -143,7 +143,7 @@ Please cite our paper if you find **ContrastiveBLI** useful. If you like our wor
 ```bibtex
 @inproceedings{li-etal-2022-improving,
     title     = {Improving Word Translation via Two-Stage Contrastive Learning},
-    author    = {Li, Yaoyiran and Liu, Fangyu and Collier, Nigel and Korhonen, Anna and Vulić, Ivan},
+    author    = {Li, Yaoyiran and Liu, Fangyu and Collier, Nigel and Korhonen, Anna and Vuli{\'c}, Ivan},
     booktitle = {Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics},    
     year      = {2022}
 }
@@ -151,10 +151,10 @@ Please cite our paper if you find **ContrastiveBLI** useful. If you like our wor
 
 Follow-up Work:
 ```bibtex
-@inproceedings{li-etal-2022-bilingual,
+@inproceedings{li-etal-2022-improving-bilingual,
     title     = {Improving Bilingual Lexicon Induction with Cross-Encoder Reranking},
-    author    = {Li, Yaoyiran and Liu, Fangyu and Vulić, Ivan and Korhonen, Anna},
-    booktitle = {In Findings of the Association for Computational Linguistics: EMNLP 2022},    
+    author    = {Li, Yaoyiran and Liu, Fangyu and Vuli{\'c}, Ivan and Korhonen, Anna},
+    booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2022},
     year      = {2022}
 }
 ```
