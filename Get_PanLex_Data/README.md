@@ -11,7 +11,7 @@
     cd fastText
     pip install .
     ```
-- Monlingual Embeddings: 
+- Get monlingual embeddings: 
     ```bash
     python get_panlex_embs.py
     ```
