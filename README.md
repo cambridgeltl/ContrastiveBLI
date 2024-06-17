@@ -19,7 +19,9 @@ In addition to BLI, we encourage interested readers to try C1-aligned 300-dim (f
 
 ## Follow-up Work:
 
-**Update**: please see our follow-up work [BLICEr](https://github.com/cambridgeltl/BLICEr) (Findings of EMNLP 2022) where we further improve BLI with post-hoc reranking, applicable to any precalculated CLWE space. Specifically, [BLICEr](https://github.com/cambridgeltl/BLICEr) first retrieve contrastive word pairs (positive and negative) and then use the word pairs to fine-tune multilingual LMs into [Cross-encoders](https://www.sbert.net/examples/applications/cross-encoder/README.html#bi-encoder-vs-cross-encoder) that can refine the cross-lingual similarity scores predicted by the CLWEs.
+**Update A**: please see our follow-up work [BLICEr](https://github.com/cambridgeltl/BLICEr) (Findings of EMNLP 2022) where we further improve BLI with post-hoc reranking, applicable to any precalculated CLWE space. Specifically, [BLICEr](https://github.com/cambridgeltl/BLICEr) first retrieve contrastive word pairs (positive and negative) and then use the word pairs to fine-tune multilingual LMs into [Cross-encoders](https://www.sbert.net/examples/applications/cross-encoder/README.html#bi-encoder-vs-cross-encoder) that can refine the cross-lingual similarity scores predicted by the CLWEs.
+
+**Update B**: the unsupervised ContrastiveBLI is used as a baseline in our follow-up work [SAIL](https://github.com/cambridgeltl/sail-bli) (ACL 2024). Please see the unsupervised results of ContrastiveBLI in [SAIL](https://github.com/cambridgeltl/sail-bli).
 
 ## Dependencies:
 
@@ -158,5 +160,14 @@ Follow-up Work:
     author    = {Li, Yaoyiran and Liu, Fangyu and Vuli{\'c}, Ivan and Korhonen, Anna},
     booktitle = {Findings of the Association for Computational Linguistics: EMNLP 2022},
     year      = {2022}
+}
+```
+
+```bibtex
+@inproceedings{li-etal-2024-self,
+    title     = {Self-Augmented In-Context Learning for Unsupervised Word Translation},
+    author    = {Li, Yaoyiran and Korhonen, Anna and Vuli{\'c}, Ivan},
+    booktitle = {Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics},    
+    year      = {2024}
 }
 ```
