@@ -1,5 +1,4 @@
 import pandas as pd
-#import faiss
 import random
 import time
 import torch
@@ -121,7 +120,7 @@ def compute_csls_accuracy(x_src, x_tgt, lexicon, lexicon_size=-1, k=10, bsz=256)
             correct += 1.0
     return correct / lexicon_size
 
-def valid_BLI(train_data_l1, train_data_l2, src2tgt, lexicon_size_s2t, tgt2src, lexicon_size_t2s):
+def eval_BLI(train_data_l1, train_data_l2, src2tgt, lexicon_size_s2t, tgt2src, lexicon_size_t2s):
 
     train_data_l1_translation = train_data_l1.cuda()
     train_data_l2_translation = train_data_l2.cuda()
@@ -184,7 +183,7 @@ if __name__ == '__main__':
     args, remaining_args = parser.parse_known_args()
     assert remaining_args == []
     print("Evaluate BLI")
-    str2lang = {"hr":"croatian", "en":"english","fi":"finnish","fr":"french","de":"german","it":"italian","ru":"russian","tr":"turkish"}
+    str2lang = {"hr":"croatian", "en":"english","fi":"finnish","fr":"french","de":"german","it":"italian","ru":"russian","tr":"turkish","bg":"bulgarian","ca":"catalan","hu":"hungarian","eu":"basque","et":"estonian","he":"hebrew"}
     my_template = "the word '{}' in {}."
 
     l1_voc = args.l1_voc
@@ -335,6 +334,6 @@ if __name__ == '__main__':
 
     mix_1 = mix_1 / (torch.norm(mix_1, dim=1, keepdim=True) + 1e-9 )
     mix_2 = mix_2 / (torch.norm(mix_2, dim=1, keepdim=True) + 1e-9 )
-    accuracy_BLI = valid_BLI(mix_1, mix_2, src2tgt, lexicon_size_s2t, tgt2src, lexicon_size_t2s)
+    accuracy_BLI = eval_BLI(mix_1, mix_2, src2tgt, lexicon_size_s2t, tgt2src, lexicon_size_t2s)
     print("C2: ", "BLI Accuracy L1 to L2: ", accuracy_BLI[0], "BLI Accuracy L2 to L1: ", accuracy_BLI[1], " {} <---> {}".format(args.l1,args.l2))
 

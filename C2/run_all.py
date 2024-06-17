@@ -28,14 +28,22 @@ lang_pairs = [('de', 'fi'),
  ('tr', 'fr'),
  ('tr', 'hr'),
  ('tr', 'it'),
- ('tr', 'ru')]
+ ('tr', 'ru'),
+ ('bg', 'ca'),
+ ('ca','hu'),
+ ('hu','bg'),
+ ('ca','bg'),
+ ('hu','ca'),
+ ('bg','hu')]
 
+XLING = set(["en","de","fr","it","ru","tr","hr","fi"])
+PanLex = set(["bg","ca","hu","eu","et","he"])
 
 #Hyper-parameters to reproduce our results.
-gpuid = '0,1'
-train_size = '1k' #or '5k'
+gpuid = '0' # '0,1' if using two gpus 
+train_size = '5k' # "5k" (supervised setup), "1k" (semi-supervised setup), or "0k" (unsupervised setup).
 DIR_NEW = "./BLI/"
-output_root = "/media/data/bert_models_final/"
+output_root = "/media/data/checkpoints/" # save model checkpoints
 random_seed = 33
 model_dir = "bert-base-multilingual-uncased" # "google/mt5-small", "xlm-mlm-100-1280"
 epoch = 5 # 6 for "google/mt5-small" 
@@ -51,18 +59,28 @@ template = 0
 neg_max = 60000 
 lambda_ = 0.2
 
+os.system("rm -rf {}".format(DIR_NEW))
+os.system("mkdir {}".format(DIR_NEW))
+
 for (lang1, lang2) in lang_pairs:
     print(lang1, lang2)
     sys.stdout.flush()
 
 
-    ROOT_FT = "/media/data/SAVE{}/".format(train_size)
+    ROOT_FT = "/media/data/SAVE{}C1/".format(train_size)
     l1_voc = ROOT_FT + "{}2{}_{}_voc.npy".format(lang1,lang2,lang1)
     l1_emb = ROOT_FT + "{}2{}_{}_emb.pt".format(lang1,lang2,lang1)
     l2_voc = ROOT_FT + "{}2{}_{}_voc.npy".format(lang1,lang2,lang2)
     l2_emb = ROOT_FT + "{}2{}_{}_emb.pt".format(lang1,lang2,lang2)
-    DIR_TEST_DICT = "/media/data/xling-eval/bli_datasets/{}-{}/yacle.test.freq.2k.{}-{}.tsv".format(lang1,lang2,lang1,lang2)
-    DIR_TRAIN_DICT = "media/data/xling-eval/bli_datasets/{}-{}/yacle.train.freq.{}.{}-{}.tsv".format(lang1,lang2,train_size,lang1,lang2)
+    if lang1 in XLING:
+        DIR_TEST_DICT = "/media/data/xling-eval/bli_datasets/{}-{}/yacle.test.freq.2k.{}-{}.tsv".format(lang1, lang2, lang1, lang2)
+    else:
+        DIR_TEST_DICT = "/media/data/panlex-bli/lexicons/all/{}-{}/{}-{}.test.2000.cc.trans".format(lang1, lang2, lang1, lang2)
+
+    if train_size == "0k":
+        DIR_TRAIN_DICT = None
+    else:
+        DIR_TRAIN_DICT = "/media/data/xling-eval/bli_datasets/{}-{}/yacle.train.freq.{}.{}-{}.tsv".format(lang1,lang2,train_size,lang1,lang2)
 
     train_dir = DIR_NEW + "{}2{}_train.txt".format(lang1,lang2)
 

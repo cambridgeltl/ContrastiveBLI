@@ -129,7 +129,7 @@ def compute_csls_accuracy(x_src, x_tgt, lexicon, lexicon_size=-1, k=10, bsz=256)
     return correct / lexicon_size
 
 
-def valid_BLI(train_data_l1, train_data_l2, src2tgt, lexicon_size_s2t, tgt2src, lexicon_size_t2s):
+def eval_BLI(train_data_l1, train_data_l2, src2tgt, lexicon_size_s2t, tgt2src, lexicon_size_t2s):
 
     train_data_l1_translation = train_data_l1.cuda()
     train_data_l2_translation = train_data_l2.cuda()
@@ -144,7 +144,7 @@ def valid_BLI(train_data_l1, train_data_l2, src2tgt, lexicon_size_s2t, tgt2src, 
     return (BLI_accuracy_l12l2, BLI_accuracy_l22l1) 
 
 def SAVE_DATA(args, train_data_l1, train_data_l2, l1_idx_sup, l2_idx_sup, voc_l1, voc_l2):
-    batch_size = args.valid_batch_size
+    batch_size = args.eval_batch_size
     num_imgs_l1 = len(train_data_l1)
     num_imgs_l2 = len(train_data_l2)
     train_data_l1_translation = train_data_l1 
@@ -176,7 +176,7 @@ def SAVE_DATA(args, train_data_l1, train_data_l2, l1_idx_sup, l2_idx_sup, voc_l1
             f.write(line+"\n")
 
 def high_conf_pairs(args, train_data_l1, train_data_l2, l1_idx_sup, l2_idx_sup):
-    batch_size = args.valid_batch_size
+    batch_size = args.eval_batch_size
     num_imgs_l1 = len(train_data_l1)
     num_imgs_l2 = len(train_data_l2)
 
@@ -297,7 +297,7 @@ if __name__ == '__main__':
                     help="num_neg")
     parser.add_argument("--num_aug_total", type=int, default=4000,
                     help="num_aug_total")
-    parser.add_argument("--valid_batch_size", type=int, default=1024,
+    parser.add_argument("--eval_batch_size", type=int, default=1024,
                     help="Batch size For Validation")
     parser.add_argument("--neg_max", type=int, default=150000,
                     help="neg_max")
@@ -341,41 +341,45 @@ if __name__ == '__main__':
     tgt2src, lexicon_size_t2s = load_lexicon_t2s(DIR_TEST_DICT, words_tgt, words_src)
     print("lexicon_size_s2t, lexicon_size_t2s", lexicon_size_s2t, lexicon_size_t2s)
     if l1_emb.size(1) < 768:
-        accuracy_BLI = valid_BLI(l1_emb, l2_emb, src2tgt, lexicon_size_s2t, tgt2src, lexicon_size_t2s)
+        accuracy_BLI = eval_BLI(l1_emb, l2_emb, src2tgt, lexicon_size_s2t, tgt2src, lexicon_size_t2s)
         print("C1: ", "BLI Accuracy L1 to L2: ", accuracy_BLI[0], "BLI Accuracy L2 to L1: ", accuracy_BLI[1])
         sys.stdout.flush()
 
 
     #Load Train
-
-    file = open(DIR_TRAIN_DICT,'r')
-    l1_dic = []
-    l2_dic = []
-    for line in file.readlines():
-        pair = line[:-1].split('\t')
-        l1_dic.append(pair[0].lower())
-        l2_dic.append(pair[1].lower())
-    file.close()
-    l1_idx_sup = []
-    l2_idx_sup = []
-    for i in range(len(l1_dic)):
-        l1_tok = l1_voc.get(l1_dic[i])
-        l2_tok = l2_voc.get(l2_dic[i])
-        if (l1_tok is not None) and (l2_tok is not None):
-            l1_idx_sup.append(l1_tok)
-            l2_idx_sup.append(l2_tok)
+    if args.train_size == "0k":
+        l1_idx_sup = []
+        l2_idx_sup = []   
+    else:
+        file = open(DIR_TRAIN_DICT,'r')
+        l1_dic = []
+        l2_dic = []
+        for line in file.readlines():
+            pair = line[:-1].split('\t')
+            l1_dic.append(pair[0].lower())
+            l2_dic.append(pair[1].lower())
+        file.close()
+        l1_idx_sup = []
+        l2_idx_sup = []
+        for i in range(len(l1_dic)):
+            l1_tok = l1_voc.get(l1_dic[i])
+            l2_tok = l2_voc.get(l2_dic[i])
+            if (l1_tok is not None) and (l2_tok is not None):
+                l1_idx_sup.append(l1_tok)
+                l2_idx_sup.append(l2_tok)
     
-    print("Sup Set Size: ", len(l1_idx_sup), len(l2_idx_sup))
+        print("Sup Set Size: ", len(l1_idx_sup), len(l2_idx_sup))
 
     #Find High Conf Pairs 
 
-    if args.train_size == "1k":
+    if args.train_size == "0k" or args.train_size == "1k":
         with torch.no_grad():
             l1_idx_aug, l2_idx_aug = high_conf_pairs(args, l1_emb, l2_emb, l1_idx_sup, l2_idx_sup)
             print("augment ", len(l1_idx_aug), " training pairs")
             sys.stdout.flush()
-    else:
+    else:  # "5k" setup
         l1_idx_aug, l2_idx_aug = [], []
+    
 
     SAVE_DATA(args, l1_emb, l2_emb, l1_idx_sup+l1_idx_aug, l2_idx_sup+l2_idx_aug, l1_voc, l2_voc)
     print("positive-negative pairs for contrastive tuning saved")
