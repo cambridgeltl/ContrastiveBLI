@@ -12,7 +12,7 @@ fasttext.util.download_model('ca', if_exists='ignore')
 fasttext.util.download_model('he', if_exists='ignore')
 
 
-root = "/media/data/PanLex_WEs/"
+root = "/media/data/WESPLX/"
 
 lang_list = ["bg","ca","he","et","hu","ka"]
 
