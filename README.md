@@ -11,7 +11,7 @@ Yaoyiran Li, Fangyu Liu, Nigel Collier, Anna Korhonen, and Ivan Vulić. 2022. *I
   <img width="650" src="model.png">
 </p>
 
-Our code is tested on both supervised (e.g., with 5k seed translation pairs) and semi-supervised/weakly supervised (e.g., with 1k seed translation pairs) BLI setups. You could specify the seed dictionary size in [./C1/run_all.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C1/run_all.py) and [./C2/run_all.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C2/run_all.py).
+Our code was initially tested on **supervised** (e.g., with 5k seed translation pairs) and **semi-supervised/weakly supervised** (e.g., with 1k seed translation pairs) BLI setups, where results were reported in our ACL 2022 work. We later extended our approach to **unsupervised** setup (no seed translation pairs) by leveraging aligned CLWEs from another unsupervised BLI approach (e.g., VecMap), and the results of unsupervised ContrastiveBLI (used as a baseline) were reported in our follow-up work [SAIL](https://github.com/cambridgeltl/sail-bli) (ACL 2024). You could specify the seed dictionary size in [./C1/run_all.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C1/run_all.py) and [./C2/run_all.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C2/run_all.py).
 
 In addition to BLI, we encourage interested readers to try C1-aligned 300-dim (fastText) CLWEs and C2-aligned 768-dim (fastText + mBERT) CLWEs on different downstream cross-lingual transfer learning tasks.
 
