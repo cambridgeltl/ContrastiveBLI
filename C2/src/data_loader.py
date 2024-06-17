@@ -26,7 +26,7 @@ class C2_Dataset(Dataset):
         with open(path, 'r') as f:
             lines = f.readlines()
 
-        self.str2lang = {"hr":"croatian", "en":"english","fi":"finnish","fr":"french","de":"german","it":"italian","ru":"russian","tr":"turkish"}
+        args.str2lang = {"hr":"croatian", "en":"english","fi":"finnish","fr":"french","de":"german","it":"italian","ru":"russian","tr":"turkish","bg":"bulgarian","ca":"catalan","hu":"hungarian","eu":"basque","et":"estonian","he":"hebrew"}
         self.l1 = l1
         self.l2 = l2
         self.template = template

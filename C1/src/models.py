@@ -31,36 +31,36 @@ class C1_Model(torch.nn.Module):
 
 
     def forward_sup(self, wv_batch, mode="train"):
-        src_input,trg_input = wv_batch[0].data, wv_batch[1].data
+        src_input,tgt_input = wv_batch[0].data, wv_batch[1].data
         
         sup_batch_size = src_input.size(0)
         conf_size = src_input.size(1)
 
         src_input_ = self.beholder(src_input)
-        trg_input_ = self.beholder(trg_input)
+        tgt_input_ = self.beholder(tgt_input)
 
         if self.resnet:
             src_mid = src_input_ + self.s2m_mapping(src_input_)
-            trg_mid = trg_input_ + self.t2m_mapping(trg_input_)
+            tgt_mid = tgt_input_ + self.t2m_mapping(tgt_input_)
         else:
             src_mid = self.s2m_mapping(src_input_)
-            trg_mid = self.t2m_mapping(trg_input_)
+            tgt_mid = self.t2m_mapping(tgt_input_)
  
         if self.norm_input:
-            trg_mid = trg_mid / (torch.norm(trg_mid, dim=-1, keepdim=True).detach() + 1e-9)
+            tgt_mid = tgt_mid / (torch.norm(tgt_mid, dim=-1, keepdim=True).detach() + 1e-9)
             src_mid = src_mid / (torch.norm(src_mid, dim=-1, keepdim=True).detach() + 1e-9)
 
  
         src_mid_anchor = src_mid[:,0,:].unsqueeze(1)
-        trg_mid_anchor = trg_mid[:,0,:].unsqueeze(1)
+        tgt_mid_anchor = tgt_mid[:,0,:].unsqueeze(1)
 
         if mode == "train":
             res_common = self.tt.LongTensor([0]*sup_batch_size)
 
             output_1 = src_mid
-            output_2 = trg_mid            
+            output_2 = tgt_mid            
 
-            compare_1 = trg_mid_anchor
+            compare_1 = tgt_mid_anchor
             sum_1 = torch.sum(output_1 * compare_1, dim=-1)
 
 
@@ -80,7 +80,7 @@ class C1_Model(torch.nn.Module):
 
         return repel_loss
 
-    def eval_src2mid(self, input_batch, mode="valid"):
+    def eval_src2mid(self, input_batch, mode="eval"):
 
         src_input = input_batch.data
         if self.resnet:
@@ -88,13 +88,13 @@ class C1_Model(torch.nn.Module):
         else:
             mid_output = self.s2m_mapping(src_input)
         return mid_output
-    def eval_tgt2mid(self, input_batch, mode="valid"):
+    def eval_tgt2mid(self, input_batch, mode="eval"):
 
-        trg_input = input_batch.data
+        tgt_input = input_batch.data
         if self.resnet:
-            mid_output = trg_input + self.t2m_mapping(trg_input)
+            mid_output = tgt_input + self.t2m_mapping(tgt_input)
         else:
-            mid_output = self.t2m_mapping(trg_input)
+            mid_output = self.t2m_mapping(tgt_input)
         return mid_output
 
 

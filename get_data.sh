@@ -1,4 +1,4 @@
-#Get XLING DATA from XLING repo https://github.com/codogogo/xling-eval.git
+#Get XLING bilingual dictionaries from XLING repo https://github.com/codogogo/xling-eval.git
 mkdir -p /media/data
 cd /media/data # replace with [YOUR DIR]
 git clone https://github.com/codogogo/xling-eval.git
@@ -6,6 +6,7 @@ git clone https://github.com/codogogo/xling-eval.git
 mkdir -p /media/data/WES
 cd /media/data/WES # replace with [YOUR DIR]
 #Get XLING preprocessed Word Embeddings from https://tinyurl.com/y5shy5gt, which is also provided by the XLING repo
+#pip install --upgrade gdown #Try upgrading gdown if unsuccessful
 gdown https://drive.google.com/uc?id=1YeQFauynj3JRwV6svWdyy0fMBwYMKNNd # de
 gdown https://drive.google.com/uc?id=1wy-OlRycb5_dEB0w52dkOSJqfEXDytDT # en
 gdown https://drive.google.com/uc?id=1wHJJk8yKu0yWsCi7wRf0SoWb_YwyZbBi # fi

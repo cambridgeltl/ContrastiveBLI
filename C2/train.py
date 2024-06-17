@@ -16,8 +16,7 @@ from itertools import chain
 import sys
 sys.path.append("./src/") 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
-#import wandb
-#wandb.init(project="XC",entity="yl2021")
+
 from data_loader import (
     C2_Dataset,
 )
@@ -145,7 +144,7 @@ def train(args, data_loader, model, scaler=None, model_wrapper=None, step_global
         else:
             loss_final.backward()
             model.optimizer.step()
-        #wandb.log({"bli_loss": bli_loss.item()})
+
         train_loss += loss_final.item()
         train_steps += 1
         step_global += 1
