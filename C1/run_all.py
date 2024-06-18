@@ -56,6 +56,7 @@ for (lang1, lang2) in lang_pairs:
     SAVE_DIR = "/media/data/SAVE" # save aligend WEs
 
     if size_train == "0k":
+        # In unsupervised setup, need aligned CLWEs from another unsupervised BLI approach
         if lang1 in XLING:
             aux_emb_src_dir = "/media/data/SAVE0kVecMap/{}-{}.OUTPUT_SRC.tsv".format(lang1, lang2)
             aux_emb_tgt_dir =  "/media/data/SAVE0kVecMap/{}-{}.OUTPUT_TRG.tsv".format(lang1, lang2)
@@ -64,8 +65,8 @@ for (lang1, lang2) in lang_pairs:
             aux_emb_tgt_dir =  "/media/data/SAVE0kVecMapP/{}-{}.OUTPUT_TRG.tsv".format(lang1, lang2)
         DIR_TRAIN_DICT = "./"
     else:
-        aux_emb_src_dir = "./"
-        aux_emb_tgt_dir = "./"
+        aux_emb_src_dir = None # None if not unsupervised setup
+        aux_emb_tgt_dir = None 
         DIR_TRAIN_DICT = "/media/data/xling-eval/bli_datasets/{}-{}/yacle.train.freq.{}.{}-{}.tsv".format(lang1, lang2, size_train , lang1, lang2)
 
     os.system('CUDA_VISIBLE_DEVICES=0  python ./src/main.py --l1 {} --l2 {} --self_learning --save_aligned_we --train_size {} --emb_src_dir {} --emb_tgt_dir {} --aux_emb_src_dir {} --aux_emb_tgt_dir {} --train_dict_dir {} --test_dict_dir {} --save_dir {}'.format(lang1, lang2, size_train, DIR_EMB_SRC, DIR_EMB_TGT, aux_emb_src_dir, aux_emb_tgt_dir, DIR_TRAIN_DICT, DIR_TEST_DICT, SAVE_DIR))
