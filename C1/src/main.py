@@ -252,7 +252,7 @@ if __name__ == '__main__':
     parser.add_argument("--gamma", type=float, default=0.99,
                     help="gamma")
     parser.add_argument("--dropout", type=float, default=0,
-                    help="Dropout keep probability")
+                    help="Dropout rate")
     parser.add_argument("--print_every", type=int, default=25,
                     help="Print every k training steps")
     parser.add_argument("--eval_every", type=int, default=50,
