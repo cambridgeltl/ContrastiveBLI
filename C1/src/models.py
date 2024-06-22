@@ -12,12 +12,10 @@ from torch.autograd import Variable
 from util import *
 
 
-
 class C1_Model(torch.nn.Module):
     def __init__(self, args):
         super(C1_Model, self).__init__()
         self.beholder  = Beholder(args)
-        self.tt = torch.cuda
         self.D_emb = args.D_emb
         self.sup_batch_size = args.mini_batch_size
         self.norm_input = args.norm_input
@@ -55,7 +53,6 @@ class C1_Model(torch.nn.Module):
         tgt_mid_anchor = tgt_mid[:,0,:].unsqueeze(1)
 
         if mode == "train":
-            res_common = self.tt.LongTensor([0]*sup_batch_size)
 
             output_1 = src_mid
             output_2 = tgt_mid            
