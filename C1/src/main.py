@@ -28,9 +28,9 @@ def normed_input(x):
     return y
 
 
-def getknn(src_, tgt_, tgt_ids, k=10, bsz=1024):
-    src_ = src_.cuda()
-    tgt_ = tgt_.cuda()
+def getknn(args, src_, tgt_, tgt_ids, k=10, bsz=1024):
+    src_ = src_.to(args.device)
+    tgt_ = tgt_.to(args.device)
     src = src_ / (torch.norm(src_, dim=1, keepdim=True) + 1e-9)
     tgt = tgt_ / (torch.norm(tgt_, dim=1, keepdim=True) + 1e-9)
     num_imgs = len(src)
@@ -81,7 +81,7 @@ def neg_sample(model,args,train_data_l1, train_data_l2, l1_idx_sup, l2_idx_sup):
         start_idx = batch_idx * batch_size
         end_idx = min( num_imgs_l1, (batch_idx + 1) * batch_size )
         length = end_idx - start_idx
-        input_ = train_data_l1[start_idx:end_idx].cuda()
+        input_ = train_data_l1[start_idx:end_idx].to(args.device)
         src_mid = model.eval_src2mid(input_, mode='eval')
         if batch_idx == 0:
             train_data_l1_translation = src_mid
@@ -94,7 +94,7 @@ def neg_sample(model,args,train_data_l1, train_data_l2, l1_idx_sup, l2_idx_sup):
         start_idx = batch_idx * batch_size
         end_idx = min( num_imgs_l2, (batch_idx + 1) * batch_size )
         length = end_idx - start_idx
-        input_ = train_data_l2[start_idx:end_idx].cuda()
+        input_ = train_data_l2[start_idx:end_idx].to(args.device)
         tgt_mid = model.eval_tgt2mid(input_, mode='eval')
         if batch_idx == 0:
             train_data_l2_translation = tgt_mid
@@ -103,8 +103,8 @@ def neg_sample(model,args,train_data_l1, train_data_l2, l1_idx_sup, l2_idx_sup):
     train_data_l2_translation = train_data_l2_translation.cpu()
     sup_data_l2_translation = torch.index_select(train_data_l2_translation,0,torch.tensor(l2_idx_sup))
 
-    confuse_tgt = getknn(sup_data_l1_translation, train_data_l2_translation[:neg_max], l2_idx_sup, k = neg_sample, bsz=1024) 
-    confuse_src = getknn(sup_data_l2_translation, train_data_l1_translation[:neg_max], l1_idx_sup, k = neg_sample, bsz=1024)  
+    confuse_tgt = getknn(args, sup_data_l1_translation, train_data_l2_translation[:neg_max], l2_idx_sup, k = neg_sample, bsz=1024) 
+    confuse_src = getknn(args, sup_data_l2_translation, train_data_l1_translation[:neg_max], l1_idx_sup, k = neg_sample, bsz=1024)  
 
 
     confuse_tgt_tensor = torch.tensor(confuse_tgt)
@@ -124,7 +124,7 @@ def eval_BLI(model, args, train_data_l1, train_data_l2, src2tgt, lexicon_size_s2
         start_idx = batch_idx * batch_size
         end_idx = min( num_imgs_l1, (batch_idx + 1) * batch_size )
         length = end_idx - start_idx
-        input_ = train_data_l1[start_idx:end_idx].cuda()
+        input_ = train_data_l1[start_idx:end_idx].to(args.device)
         src_mid = model.eval_src2mid(input_, mode='eval')
         if batch_idx == 0:
             train_data_l1_translation = src_mid
@@ -135,7 +135,7 @@ def eval_BLI(model, args, train_data_l1, train_data_l2, src2tgt, lexicon_size_s2
         start_idx = batch_idx * batch_size
         end_idx = min( num_imgs_l2, (batch_idx + 1) * batch_size )
         length = end_idx - start_idx
-        input_ = train_data_l2[start_idx:end_idx].cuda()
+        input_ = train_data_l2[start_idx:end_idx].to(args.device)
         tgt_mid = model.eval_tgt2mid(input_, mode='eval')
         if batch_idx == 0:
             train_data_l2_translation = tgt_mid
@@ -162,7 +162,7 @@ def high_conf_pairs(model, args, train_data_l1, train_data_l2, l1_idx_sup, l2_id
         start_idx = batch_idx * batch_size
         end_idx = min( num_imgs_l1, (batch_idx + 1) * batch_size )
         length = end_idx - start_idx
-        input_ = train_data_l1[start_idx:end_idx].cuda()
+        input_ = train_data_l1[start_idx:end_idx].to(args.device)
         src_mid = model.eval_src2mid(input_, mode='eval')
         if batch_idx == 0:
             train_data_l1_translation = src_mid
@@ -173,7 +173,7 @@ def high_conf_pairs(model, args, train_data_l1, train_data_l2, l1_idx_sup, l2_id
         start_idx = batch_idx * batch_size
         end_idx = min( num_imgs_l2, (batch_idx + 1) * batch_size )
         length = end_idx - start_idx
-        input_ = train_data_l2[start_idx:end_idx].cuda()
+        input_ = train_data_l2[start_idx:end_idx].to(args.device)
         tgt_mid = model.eval_tgt2mid(input_, mode='eval')
         if batch_idx == 0:
             train_data_l2_translation = tgt_mid
@@ -196,7 +196,7 @@ def SAVE_DATA(model, args, train_data_l1, train_data_l2, l1_idx_sup, l2_idx_sup,
         start_idx = batch_idx * batch_size
         end_idx = min( num_imgs_l1, (batch_idx + 1) * batch_size )
         length = end_idx - start_idx
-        input_ = train_data_l1[start_idx:end_idx].cuda()
+        input_ = train_data_l1[start_idx:end_idx].to(args.device)
         src_mid = model.eval_src2mid(input_, mode='eval')
         if batch_idx == 0:
             train_data_l1_translation = src_mid
@@ -207,7 +207,7 @@ def SAVE_DATA(model, args, train_data_l1, train_data_l2, l1_idx_sup, l2_idx_sup,
         start_idx = batch_idx * batch_size
         end_idx = min( num_imgs_l2, (batch_idx + 1) * batch_size )
         length = end_idx - start_idx
-        input_ = train_data_l2[start_idx:end_idx].cuda()
+        input_ = train_data_l2[start_idx:end_idx].to(args.device)
         tgt_mid = model.eval_tgt2mid(input_, mode='eval')
         if batch_idx == 0:
             train_data_l2_translation = tgt_mid
@@ -271,6 +271,8 @@ if __name__ == '__main__':
                     help="Add residual connection to linear mappings")
     parser.add_argument("--cpu", action="store_true", default=False,
                     help="True if using cpu only")
+    parser.add_argument("--device", type=str, default=" ",
+                    help="Device")
     parser.add_argument("--self_learning", action="store_true", default=True,
                     help="True if using 1k translation pairs and do self-learning to augment training samples")
     parser.add_argument("--save_aligned_we", action="store_true", default=True,
@@ -346,6 +348,11 @@ if __name__ == '__main__':
         print("Unknown Setting, Please Conduct Hyperparameter Search on Your Dataset.")
 
 
+    if args.cpu:
+        args.device = torch.device('cpu')
+    else:
+        args.device = torch.device('cuda:0')
+
 #### Define Directories
     DIR_EMB_SRC = args.emb_src_dir
     DIR_EMB_TGT = args.emb_tgt_dir
@@ -390,7 +397,7 @@ if __name__ == '__main__':
         aux_data_l2 = torch.from_numpy(embs_l2_aux.copy())
         print("Static AUXILIARY WEs Loaded")
         sys.stdout.flush()        
-        l1_idx_aug_, l2_idx_aug_ = generate_new_dictionary_bidirectional(args, aux_data_l1.cuda(), aux_data_l2.cuda(), [], [])
+        l1_idx_aug_, l2_idx_aug_ = generate_new_dictionary_bidirectional(args, aux_data_l1.to(args.device), aux_data_l2.to(args.device), [], [])
         if (voc_l1 == voc_l1_aux) and (voc_l2 == voc_l2_aux):
             l1_idx_sup = l1_idx_aug_
             l2_idx_sup = l2_idx_aug_
@@ -514,7 +521,7 @@ if __name__ == '__main__':
                 s2m_mapping = s2m_mapping - torch.eye(args.D_emb)
                 t2m_mapping = t2m_mapping - torch.eye(args.D_emb)
 
-            pdict = {'s2m_mapping.weight':s2m_mapping.cuda(), 't2m_mapping.weight':t2m_mapping.cuda()}
+            pdict = {'s2m_mapping.weight':s2m_mapping.to(args.device), 't2m_mapping.weight':t2m_mapping.to(args.device)}
             model_dict=model.state_dict()
             pretrained_dict = {}
             for k,v in model_dict.items():
@@ -554,8 +561,8 @@ if __name__ == '__main__':
     
                 for i in range(args.sup_batch_size//args.mini_batch_size):
     
-                    src_input_mini = src_input[i*args.mini_batch_size:(i+1)*args.mini_batch_size,:,:].cuda()
-                    tgt_input_mini = tgt_input[i*args.mini_batch_size:(i+1)*args.mini_batch_size,:,:].cuda()
+                    src_input_mini = src_input[i*args.mini_batch_size:(i+1)*args.mini_batch_size,:,:].to(args.device)
+                    tgt_input_mini = tgt_input[i*args.mini_batch_size:(i+1)*args.mini_batch_size,:,:].to(args.device)
                     loss = forward_joint((src_input_mini,tgt_input_mini), model, train_loss_dict_, args, mode="train")
                     loss.backward()
     

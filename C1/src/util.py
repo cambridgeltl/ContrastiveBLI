@@ -244,13 +244,13 @@ def compute_csls_accuracy(x_src, x_tgt, lexicon, args, model, lexicon_size=-1, k
     x_src_ =x_src /(torch.norm(x_src, dim=1, keepdim=True) + 1e-9)
     x_tgt_ =x_tgt /(torch.norm(x_tgt, dim=1, keepdim=True) + 1e-9)
     sr = x_src_[idx_src]
-    sc = torch.zeros(sr.size(0),x_tgt_.size(0)).cuda()
+    sc = torch.zeros(sr.size(0),x_tgt_.size(0)).to(args.device)
     for i in range(0, len(idx_src), bsz):
         e = min(i + bsz, len(idx_src))
         sc_ = torch.matmul(x_tgt_, sr[i:e].T)
         sc[i:e] = sc_.T
     similarities = 2 * sc
-    sc2 = torch.zeros(x_tgt_.size(0)).cuda()
+    sc2 = torch.zeros(x_tgt_.size(0)).to(args.device)
     for i in range(0, x_tgt_.size(0), bsz):
         j = min(i + bsz, x_tgt_.size(0))
         sc_batch = torch.matmul(x_tgt_[i:j,:], x_src_.T)

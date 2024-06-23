@@ -72,10 +72,7 @@ class C1_Model(torch.nn.Module):
         else:
             combined_loss = 0
 
-
-        repel_loss = combined_loss
-
-        return repel_loss
+        return combined_loss
 
     def eval_src2mid(self, input_batch, mode="eval"):
 
