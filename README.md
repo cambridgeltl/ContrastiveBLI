@@ -38,6 +38,7 @@ We also evaluate BLI for <ins>lower-resource languages</ins> with a subset of [P
 Please make sure that the input and output directories are correctly set before running the code. See [./SetDirectories.md](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/SetDirectories.md) for details. 
 
 ## Run the Code:
+
 Stage C1 (Training and Evaluation over 28 language pairs in both directions):
 ```bash
 cd C1
@@ -55,6 +56,7 @@ Since our method is symmetric, it is not needed to train separate models for sou
 - P@1 via NN retrieval for L2->L1; 
 - P@1 via CSLS retrieval for L2->L1.
 
+We recommend to run the code on GPU and the runtime is reported in our paper. Our Stage C1 also supports running on pure CPU by setting ```args.cpu=True```: it will typically costs circa 3 hours for each language pair for Stage C1.  
 
 ## Environment Setup:
 
