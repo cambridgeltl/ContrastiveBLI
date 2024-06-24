@@ -278,7 +278,7 @@ if __name__ == '__main__':
     parser.add_argument("--save_aligned_we", action="store_true", default=True,
                     help="True if saving aligned WEs")    
     parser.add_argument("--num_aug", type=int, default=6000,
-                    help="Print every k training steps")
+                    help="Naug")
     parser.add_argument("--train_size", type=str, default="1k",
                     help="train dict size")
     parser.add_argument("--emb_src_dir", type=str, default="./",
