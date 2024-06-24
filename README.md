@@ -81,7 +81,7 @@ sh setup.sh
 
 When running experiments on a different dataset, on different language pairs or having different BLI settings such as seed dictionary sizes, word embeddings (WEs) or pretrained LMs, doing hyper-parameter search in both Stage C1 and Stage C2 is necessary, whenever a dev set is available.
  
-- In C1, you might use valid_every = 10 to track the BLI performance when doing hyper-parameter search. If the BLI accuracy score (on your dev set) in each training epoch obviously drops from some point, then reduce num_games, lr, or gamma in [./C1/src/main.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C1/src/main.py); otherwise you may increase them.
+- In C1, you might use eval_every = 10 to track the BLI performance when doing hyper-parameter search. If the BLI accuracy score (on your dev set) in each training epoch obviously drops from some point, then reduce num_steps, lr, or gamma in [./C1/src/main.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C1/src/main.py); otherwise you may increase them.
 
 - In C1, when having a different seed dictionary size (other than 1k and 5k), we would recommend to also tune num_sl, num_aug, and dico_max_rank (in [./C1/src/main.py](https://github.com/cambridgeltl/ContrastiveBLI/blob/main/C1/src/main.py)) on your dev set. Besides, you may need to modify sup_batch_size and mini_batch_size.
 
