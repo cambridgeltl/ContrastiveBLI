@@ -76,7 +76,7 @@ def neg_sample(model,args,train_data_l1, train_data_l2, l1_idx_sup, l2_idx_sup):
     num_imgs_l1 = len(train_data_l1)
     num_imgs_l2 = len(train_data_l2)
     neg_sample = args.num_sample
-    neg_max = 60000
+    neg_max = args.neg_max
     for batch_idx in range( int( math.ceil( float(num_imgs_l1) / batch_size ) ) ):
         start_idx = batch_idx * batch_size
         end_idx = min( num_imgs_l1, (batch_idx + 1) * batch_size )
@@ -262,11 +262,11 @@ if __name__ == '__main__':
     parser.add_argument("--norm_input", action="store_true", default=True,
                     help="True if unit-norm word embeddings")
     parser.add_argument("--num_sample", type=int, default=150,
-                    help="Number of hard negative samples in contrastive training objective")
+                    help="Nneg: Number of hard negative samples in contrastive training objective")
     parser.add_argument("--neg_max", type=int, default=60000,
-                    help="Number of hard negative samples in contrastive training objective")
+                    help="neg_max")
     parser.add_argument("--dico_max_rank", type=int, default=20000,
-                    help="Number of hard negative samples in contrastive training objective")
+                    help="Nfreq")
     parser.add_argument("--resnet", action="store_true", default=False,
                     help="Add residual connection to linear mappings")
     parser.add_argument("--cpu", action="store_true", default=False,
