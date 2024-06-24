@@ -56,7 +56,7 @@ Since our method is symmetric, it is not needed to train separate models for sou
 - P@1 via NN retrieval for L2->L1; 
 - P@1 via CSLS retrieval for L2->L1.
 
-We recommend to run the code on GPU and the runtime is reported in our paper. Our Stage C1 also supports running on pure CPU by setting ```args.cpu=True```: it will typically cost circa 3 hours for each language pair for Stage C1 with 5k seed translation pairs. In contrast, the time cost is about 10+ minutes with a single 12GB TITAN X, or about only 5 minutes with a single 80GB A100 GPU.  
+We recommend to run the code on GPU and the runtime is reported in our paper. Our Stage C1 also supports running on pure CPU by setting ```args.cpu=True```: it will typically cost circa 3 hours for each language pair for Stage C1 with 5k seed translation pairs. In contrast, the time cost is about 10+ minutes with a single 12GB TITAN X, or about only 5 minutes with a single 80GB A100 GPU (Stage C1).  
 
 ## Environment Setup:
 
